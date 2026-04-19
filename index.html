@@ -699,7 +699,19 @@
             document.getElementById('missedList').innerHTML = html;
         }
 
-        init();
+        // Ensure init runs on page load - cross-browser compatible
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+        
+        // Fallback: window.load as backup
+        window.addEventListener('load', () => {
+            if (!state.filteredCards || state.filteredCards.length === 0) {
+                init();
+            }
+        });
     </script>
 </body>
 </html>
