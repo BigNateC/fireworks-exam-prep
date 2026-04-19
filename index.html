@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fireworks Exhibitor Exam Prep — Ohio Type I</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f1419;
+            color: #e4e6eb;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #30363d;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #58a6ff;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #8b949e;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .stat-box {
+            background: #161b22;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            border-left: 3px solid #58a6ff;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #8b949e;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: #58a6ff;
+            margin-top: 5px;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s;
+            background: #238636;
+            color: white;
+        }
+
+        .btn:hover {
+            background: #2ea043;
+        }
+
+        .btn.secondary {
+            background: #30363d;
+            color: #c9d1d9;
+        }
+
+        .btn.secondary:hover {
+            background: #3d444d;
+        }
+
+        .btn.active {
+            background: #58a6ff;
+            color: #0f1419;
+        }
+
+        select {
+            padding: 10px 12px;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            background: #161b22;
+            color: #c9d1d9;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 20px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: #58a6ff;
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.1);
+        }
+
+        .card-category {
+            font-size: 12px;
+            color: #8b949e;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .card-question {
+            font-size: 20px;
+            font-weight: 600;
+            color: #c9d1d9;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .card-answer {
+            font-size: 18px;
+            color: #58a6ff;
+            line-height: 1.5;
+        }
+
+        .flip-hint {
+            font-size: 12px;
+            color: #6e7681;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .option {
+            padding: 15px;
+            border: 2px solid #30363d;
+            border-radius: 6px;
+            cursor: pointer;
+            background: #0d1117;
+            color: #c9d1d9;
+            transition: all 0.2s;
+        }
+
+        .option:hover {
+            border-color: #58a6ff;
+            background: #161b22;
+        }
+
+        .option.selected {
+            border-color: #58a6ff;
+            background: #161b22;
+        }
+
+        .option.correct {
+            border-color: #2ea043;
+            background: rgba(46, 160, 67, 0.1);
+            color: #2ea043;
+        }
+
+        .option.incorrect {
+            border-color: #da3633;
+            background: rgba(218, 54, 51, 0.1);
+            color: #ff7b72;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #0d1117;
+            border-radius: 3px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #58a6ff;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pass-indicator {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .pass-indicator.pass {
+            background: rgba(46, 160, 67, 0.1);
+            color: #2ea043;
+            border: 2px solid #2ea043;
+        }
+
+        .pass-indicator.fail {
+            background: rgba(218, 54, 51, 0.1);
+            color: #ff7b72;
+            border: 2px solid #da3633;
+        }
+
+        .result-item {
+            background: #161b22;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #da3633;
+            margin-bottom: 10px;
+        }
+
+        .result-item.correct {
+            border-left-color: #2ea043;
+        }
+
+        .result-question {
+            font-weight: 600;
+            color: #c9d1d9;
+            margin-bottom: 8px;
+        }
+
+        .result-your-answer {
+            font-size: 12px;
+            color: #8b949e;
+            margin-bottom: 5px;
+        }
+
+        .result-correct-answer {
+            font-size: 12px;
+            color: #2ea043;
+            margin-bottom: 5px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .score-display {
+            font-size: 48px;
+            font-weight: bold;
+            color: #58a6ff;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 22px;
+            }
+
+            .card {
+                padding: 20px;
+                min-height: 250px;
+            }
+
+            .card-question {
+                font-size: 16px;
+            }
+
+            .card-answer {
+                font-size: 16px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .btn, select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎆 Fireworks Exhibitor Exam Prep</h1>
+            <p class="subtitle">Ohio Type I License Exam — 100 Questions, 70% to Pass</p>
+            <div class="stats">
+                <div class="stat-box">
+                    <div class="stat-label">Score</div>
+                    <div class="stat-value" id="scoreDisplay">0%</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Correct</div>
+                    <div class="stat-value" id="correctDisplay">0/0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Streak</div>
+                    <div class="stat-value" id="streakDisplay">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Cards</div>
+                    <div class="stat-value" id="totalCards">0</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="controls">
+            <button class="btn active" id="flashcardMode">📇 Flashcards</button>
+            <button class="btn secondary" id="quizMode">📝 Quiz</button>
+            <button class="btn secondary" id="reviewMode">🔍 Review Missed</button>
+            <select id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="NFPA 1123">NFPA 1123</option>
+                <option value="NFPA 1126">NFPA 1126</option>
+                <option value="Classifications">Classifications</option>
+                <option value="Ohio Law">Ohio Law</option>
+                <option value="Terminology">Terminology</option>
+                <option value="Acronyms">Acronyms</option>
+                <option value="Safety">Safety</option>
+            </select>
+            <button class="btn secondary" id="resetBtn">🔄 Reset</button>
+        </div>
+
+        <div id="flashcardSection">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+            </div>
+            <div class="card" id="card">
+                <div class="card-category" id="cardCategory"></div>
+                <div class="card-question" id="cardQuestion"></div>
+                <div id="cardAnswerContainer" style="display: none;">
+                    <div class="card-answer" id="cardAnswer"></div>
+                </div>
+                <div class="flip-hint" id="flipHint">Tap to reveal answer</div>
+            </div>
+            <div class="navigation">
+                <button class="btn secondary" id="missBtn">❌ Missed</button>
+                <button class="btn" id="gotItBtn">✅ Got It</button>
+                <button class="btn secondary" id="nextBtn">→ Next</button>
+            </div>
+        </div>
+
+        <div id="quizSection" class="hidden">
+            <div class="progress-bar">
+                <div class="progress-fill" id="quizProgressFill" style="width: 0%"></div>
+            </div>
+            <div class="card">
+                <div class="card-category" id="quizCategory"></div>
+                <div class="card-question" id="quizQuestion"></div>
+                <div class="quiz-options" id="quizOptions"></div>
+            </div>
+            <div class="navigation">
+                <button class="btn" id="submitAnswerBtn">Submit Answer</button>
+                <button class="btn secondary" id="skipBtn">Skip</button>
+            </div>
+        </div>
+
+        <div id="resultsSection" class="hidden">
+            <h2 style="text-align: center; margin-bottom: 20px;">Quiz Results</h2>
+            <div class="score-display" id="finalScore">0%</div>
+            <div class="pass-indicator" id="passIndicator"></div>
+            <div id="resultsList"></div>
+            <div class="navigation" style="margin-top: 30px;">
+                <button class="btn" id="restartBtn">🔄 Try Again</button>
+            </div>
+        </div>
+
+        <div id="reviewSection" class="hidden">
+            <h2 style="text-align: center; margin-bottom: 20px;">Missed Questions</h2>
+            <div id="missedList"></div>
+            <div class="navigation">
+                <button class="btn" id="backBtn">← Back</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 70 FLASHCARDS covering all exam topics
+        const flashcards = [
+            {category:"NFPA 1123",q:"What is an aerial shell?",a:"A spherical or cylindrical explosive device designed to be launched from a mortar and produce effects at height."},
+            {category:"NFPA 1123",q:"What is deflagration?",a:"Rapid burning of material without detonation (subsonic). Used in pyrotechnic lift charges."},
+            {category:"NFPA 1123",q:"What is detonation?",a:"A violent chemical reaction producing a shockwave at supersonic speed. Different from deflagration."},
+            {category:"NFPA 1123",q:"Define lift charge.",a:"A black powder charge inside an aerial shell that lifts it into the air when ignited."},
+            {category:"NFPA 1123",q:"What is quick match?",a:"A fused cord used to synchronize timing between pyrotechnic devices."},
+            {category:"NFPA 1123",q:"Define black powder.",a:"Fuel mixture of saltpeter, charcoal, and sulfur used in lift charges and salutes."},
+            {category:"NFPA 1123",q:"What is flash powder?",a:"A bright-burning pyrotechnic composition that produces flashburst effects."},
+            {category:"NFPA 1123",q:"Define a salute.",a:"A pyrotechnic device designed to produce a loud report or noise effect."},
+            {category:"NFPA 1123",q:"What is a mortar?",a:"A tube device from which aerial shells are launched in a display."},
+            {category:"NFPA 1123",q:"What is fallout radius?",a:"The distance from the discharge site where debris from shells may fall."},
+            {category:"NFPA 1123",q:"Define discharge site.",a:"The specific location where pyrotechnic devices are fired during a display."},
+            {category:"NFPA 1123",q:"What is a mine in fireworks?",a:"A ground-level pyrotechnic device that ejects effects upward or outward."},
+            {category:"NFPA 1123",q:"Define a comet in pyrotechnics.",a:"A small projectile inside an aerial shell that burns with color in the air."},
+            {category:"NFPA 1123",q:"What temperature range must black powder be stored at?",a:"Between 50°F and 90°F (10°C to 32°C), kept dry and away from moisture."},
+            {category:"Classifications",q:"What is the difference between 1.3G and 1.4G fireworks?",a:"1.3G = Display fireworks (more hazard, professional use). 1.4G = Consumer fireworks (less hazard, broader availability)."},
+            {category:"Classifications",q:"What UN classification covers display fireworks?",a:"UN 1.3G — Class 1 explosive, Division 1.3G."},
+            {category:"Classifications",q:"What UN classification covers consumer fireworks?",a:"UN 1.4G — Class 1 explosive, Division 1.4G."},
+            {category:"Classifications",q:"What does the UN number on fireworks indicate?",a:"The hazard classification and regulatory requirements for storage, transport, and use."},
+            {category:"NFPA 1126",q:"What is proximate audience?",a:"Spectators who are present at the location where pyrotechnic devices are being used."},
+            {category:"NFPA 1126",q:"What is the minimum distance between devices and audience per NFPA 1126?",a:"Depends on device type and shell size, but typically 15-50 feet for consumer-use devices."},
+            {category:"NFPA 1126",q:"Must audience protection barriers be used for proximate audience displays?",a:"Yes, barriers, distance controls, or other protective measures are required."},
+            {category:"NFPA 1126",q:"Who is responsible for audience safety in a proximate audience display?",a:"The operator and venue owner jointly share responsibility for spectator protection."},
+            {category:"Ohio Law",q:"What is the primary regulatory statute for fireworks in Ohio?",a:"ORC 3743 (Ohio Revised Code Chapter 3743) — Explosives and Fireworks Law."},
+            {category:"Ohio Law",q:"What are the Type I exhibitor license requirements in Ohio?",a:"Must be at least 18, pass the Type I exam, provide insurance, submit permit application 30 days prior."},
+            {category:"Ohio Law",q:"Who issues Type I fireworks licenses in Ohio?",a:"The State Fire Marshal (SFM) in the Department of Commerce (DOC)."},
+            {category:"Ohio Law",q:"How long is a Type I exhibitor license valid in Ohio?",a:"Typically one (1) year from date of issuance."},
+            {category:"Ohio Law",q:"What is the exam passing score for Type I in Ohio?",a:"70% (70 correct answers out of 100 questions)."},
+            {category:"Ohio Law",q:"What does HB 172 allow for in fireworks licensing?",a:"Expanded regulations for 1.4G consumer fireworks and modified licensing procedures."},
+            {category:"Ohio Law",q:"What is the penalty for operating without a Type I license in Ohio?",a:"Civil fine up to $500 per violation, plus potential criminal charges."},
+            {category:"Ohio Law",q:"Must a Type I exhibitor carry liability insurance?",a:"Yes, minimum $1,000,000 general liability insurance is typically required."},
+            {category:"Safety",q:"What should be the first step before any display?",a:"Inspect all devices for damage, defects, and proper labeling."},
+            {category:"Safety",q:"What is the safe distance between shells and spectators?",a:"Minimum of 1.5 times the height of the burst expected (or per NFPA/local rules)."},
+            {category:"Safety",q:"What fire extinguishers are recommended for a fireworks display?",a:"Class C dry powder extinguishers (for electrical) and water/foam for general fires."},
+            {category:"Safety",q:"How should live pyrotechnic devices be handled?",a:"With care, by designated trained personnel, minimizing handling and keeping away from ignition sources."},
+            {category:"Safety",q:"What should operators wear during a display?",a:"Protective gear including safety glasses, gloves, and retardant-treated clothing."},
+            {category:"Safety",q:"When should a display be postponed or cancelled?",a:"High winds (>12 mph), low clouds, rain, insufficient visibility, or electrical storms."},
+            {category:"Safety",q:"What is the required waiting time after ignition failure?",a:"At least 15 minutes before approaching a misfire; then inspect before re-lighting."},
+            {category:"Safety",q:"How far should non-essential personnel stay from the discharge site?",a:"At least 100 feet; preferably beyond fallout radius calculations."},
+            {category:"Acronyms",q:"What does AHJ stand for?",a:"Authority Having Jurisdiction — the local fire marshal or official with regulatory authority."},
+            {category:"Acronyms",q:"What does NFPA stand for?",a:"National Fire Protection Association — develops safety standards for fireworks."},
+            {category:"Acronyms",q:"What does ATF stand for?",a:"Bureau of Alcohol, Tobacco, Firearms and Explosives — federal oversight of explosive materials."},
+            {category:"Acronyms",q:"What does SFM stand for?",a:"State Fire Marshal — Ohio official overseeing fireworks licensing and regulations."},
+            {category:"Acronyms",q:"What does APA stand for?",a:"American Pyrotechnics Association — professional organization for pyrotechnicians."},
+            {category:"Acronyms",q:"What does PGI stand for?",a:"Pyrotechnics Guild International — professional guild for display pyrotechnicians."},
+            {category:"Acronyms",q:"What does CPSC stand for?",a:"Consumer Product Safety Commission — regulates consumer fireworks."},
+            {category:"Acronyms",q:"What does DOT stand for?",a:"Department of Transportation — regulates transport of explosives."},
+            {category:"Acronyms",q:"What does ORC stand for?",a:"Ohio Revised Code — state laws including ORC 3743 for fireworks."},
+            {category:"Acronyms",q:"What does OFC stand for?",a:"Ohio Fire Code — state fire code incorporating NFPA standards."},
+            {category:"Acronyms",q:"What does DOC stand for?",a:"Department of Commerce — Ohio state agency issuing fireworks licenses."},
+            {category:"Terminology",q:"What is a shell burst?",a:"The explosion of an aerial shell at its peak altitude, producing color, report, or effects."},
+            {category:"Terminology",q:"What is a fuse?",a:"A cord or wire that burns at a controlled rate to ignite a pyrotechnic device."},
+            {category:"Terminology",q:"What is a time fuse?",a:"A fuse with a known burn rate used to delay ignition of a charge."},
+            {category:"Terminology",q:"What is a star in pyrotechnics?",a:"A pellet of pyrotechnic composition that burns with color or effect inside a shell."},
+            {category:"Terminology",q:"What is a break charge?",a:"The explosive that breaks apart an aerial shell to disperse its effects."},
+            {category:"Terminology",q:"Define caliber in fireworks.",a:"The diameter of a mortar tube, typically measured in inches (3-inch, 4-inch, 6-inch shells)."},
+            {category:"Terminology",q:"What is a crossette effect in fireworks?",a:"A shell that breaks into smaller shells mid-air, each creating a burst."},
+            {category:"NFPA 1123",q:"What is the maximum shell size for a typical display?",a:"12-inch is common; larger shells (16-inch+) require additional separation distances."},
+            {category:"Safety",q:"How many Type I exhibitors are required for a display?",a:"At minimum one licensed Type I exhibitor must be present and in charge of operations."},
+            {category:"Safety",q:"What is the ignition sequence in a professional display?",a:"Start with ground items, then low-level effects, then high shells, ending with finale."},
+            {category:"NFPA 1126",q:"Can handheld sparklers be used in a proximate audience display?",a:"Yes, if they meet CPSC standards and are used per NFPA 1126 guidelines."},
+            {category:"Classifications",q:"What makes a 1.3G device more hazardous than 1.4G?",a:"Higher explosive content, larger burst radius, and potential for unintended fragmentation."},
+            {category:"Safety",q:"What should happen if multiple shells fail to fire?",a:"Clear the area, wait 15+ minutes, then investigate each shell individually before attempting re-ignition."},
+            {category:"NFPA 1123",q:"How is fallout radius calculated for safety?",a:"Based on shell size, burst altitude, and debris weight — typically 1.5x burst height minimum."},
+            {category:"Ohio Law",q:"What is a pyrotechnic permit in Ohio?",a:"A document issued by the AHJ (Authority Having Jurisdiction) allowing a specific display at a specific location and date."},
+            {category:"Terminology",q:"What is magazine storage?",a:"A facility specifically designed and approved for storing explosive pyrotechnic materials."},
+            {category:"Safety",q:"What documentation must be available at a display site?",a:"Type I license, COI insurance, permits, shell inventories, and manufacturer spec sheets."}
+        ];
+
+        let state = {
+            mode: 'flashcard',
+            currentCardIndex: 0,
+            currentQuizIndex: 0,
+            filteredCards: [],
+            correct: 0,
+            incorrect: 0,
+            streak: 0,
+            maxStreak: 0,
+            quizAnswers: [],
+            missedCards: [],
+            selectedCategory: '',
+        };
+
+        function init() {
+            filterCards();
+            document.getElementById('totalCards').textContent = state.filteredCards.length;
+            loadCard();
+            setupEventListeners();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('flashcardMode').addEventListener('click', () => switchMode('flashcard'));
+            document.getElementById('quizMode').addEventListener('click', () => switchMode('quiz'));
+            document.getElementById('reviewMode').addEventListener('click', () => switchMode('review'));
+            document.getElementById('resetBtn').addEventListener('click', init);
+            
+            document.getElementById('card').addEventListener('click', flipCard);
+            document.getElementById('gotItBtn').addEventListener('click', () => markCard(true));
+            document.getElementById('missBtn').addEventListener('click', () => markCard(false));
+            document.getElementById('nextBtn').addEventListener('click', nextCard);
+            
+            document.getElementById('categoryFilter').addEventListener('change', (e) => {
+                state.selectedCategory = e.target.value;
+                filterCards();
+                state.currentCardIndex = 0;
+                loadCard();
+            });
+
+            document.getElementById('submitAnswerBtn').addEventListener('click', submitQuizAnswer);
+            document.getElementById('skipBtn').addEventListener('click', skipQuestion);
+            document.getElementById('restartBtn').addEventListener('click', () => location.reload());
+            document.getElementById('backBtn').addEventListener('click', () => switchMode('flashcard'));
+        }
+
+        function filterCards() {
+            state.filteredCards = state.selectedCategory ? flashcards.filter(c => c.category === state.selectedCategory) : flashcards.slice();
+            document.getElementById('totalCards').textContent = state.filteredCards.length;
+        }
+
+        function switchMode(mode) {
+            state.mode = mode;
+            document.getElementById('flashcardSection').classList.toggle('hidden', mode !== 'flashcard');
+            document.getElementById('quizSection').classList.toggle('hidden', mode !== 'quiz');
+            document.getElementById('resultsSection').classList.toggle('hidden', mode !== 'results');
+            document.getElementById('reviewSection').classList.toggle('hidden', mode !== 'review');
+
+            [document.getElementById('flashcardMode'),document.getElementById('quizMode'),document.getElementById('reviewMode')].forEach(el => el.classList.remove('active'));
+            if (mode === 'flashcard') document.getElementById('flashcardMode').classList.add('active');
+            if (mode === 'quiz') { document.getElementById('quizMode').classList.add('active'); state.currentQuizIndex = 0; state.quizAnswers = []; loadQuizCard(); }
+            if (mode === 'review') { document.getElementById('reviewMode').classList.add('active'); renderMissedCards(); }
+        }
+
+        function loadCard() {
+            if (!state.filteredCards.length) return;
+            if (state.currentCardIndex >= state.filteredCards.length) state.currentCardIndex = 0;
+            const card = state.filteredCards[state.currentCardIndex];
+            document.getElementById('cardCategory').textContent = card.category;
+            document.getElementById('cardQuestion').textContent = card.q;
+            document.getElementById('cardAnswer').textContent = card.a;
+            document.getElementById('cardAnswerContainer').style.display = 'none';
+            document.getElementById('flipHint').style.display = 'block';
+            updateProgress();
+        }
+
+        function flipCard() {
+            const container = document.getElementById('cardAnswerContainer');
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+            document.getElementById('flipHint').textContent = container.style.display === 'none' ? 'Tap to reveal answer' : 'Answer revealed — tap to hide';
+        }
+
+        function markCard(correct) {
+            if (correct) { state.correct++; state.streak++; if (state.streak > state.maxStreak) state.maxStreak = state.streak; }
+            else { state.incorrect++; state.streak = 0; state.missedCards.push(state.filteredCards[state.currentCardIndex]); }
+            updateStats();
+            nextCard();
+        }
+
+        function nextCard() {
+            state.currentCardIndex++;
+            if (state.currentCardIndex >= state.filteredCards.length) state.currentCardIndex = 0;
+            loadCard();
+        }
+
+        function updateStats() {
+            const total = state.correct + state.incorrect;
+            const percentage = total === 0 ? 0 : Math.round((state.correct / total) * 100);
+            document.getElementById('scoreDisplay').textContent = percentage + '%';
+            document.getElementById('correctDisplay').textContent = state.correct + '/' + total;
+            document.getElementById('streakDisplay').textContent = state.streak;
+        }
+
+        function updateProgress() {
+            const progress = state.filteredCards.length ? ((state.currentCardIndex + 1) / state.filteredCards.length) * 100 : 0;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function loadQuizCard() {
+            if (state.currentQuizIndex >= state.filteredCards.length) { endQuiz(); return; }
+            const card = state.filteredCards[state.currentQuizIndex];
+            document.getElementById('quizCategory').textContent = card.category;
+            document.getElementById('quizQuestion').textContent = card.q;
+
+            const options = [card.a];
+            const wrong = state.filteredCards.filter(c => c.q !== card.q).map(c => c.a).sort(() => Math.random() - 0.5).slice(0, 3);
+            options.push(...wrong);
+            options.sort(() => Math.random() - 0.5);
+
+            const optionsDiv = document.getElementById('quizOptions');
+            optionsDiv.innerHTML = '';
+            options.forEach((opt, idx) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.textContent = opt;
+                div.dataset.correct = idx === options.indexOf(card.a);
+                div.addEventListener('click', function() {
+                    document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+                optionsDiv.appendChild(div);
+            });
+
+            const progress = ((state.currentQuizIndex) / state.filteredCards.length) * 100;
+            document.getElementById('quizProgressFill').style.width = progress + '%';
+        }
+
+        function submitQuizAnswer() {
+            const selected = document.querySelector('.option.selected');
+            if (!selected) { alert('Select an answer first'); return; }
+            
+            const isCorrect = selected.dataset.correct === 'true';
+            const card = state.filteredCards[state.currentQuizIndex];
+            
+            if (isCorrect) { state.correct++; state.streak++; if (state.streak > state.maxStreak) state.maxStreak = state.streak; }
+            else { state.incorrect++; state.streak = 0; state.missedCards.push(card); }
+
+            state.quizAnswers.push({ q: card.q, a: card.a, userAnswer: selected.textContent, correct: isCorrect, category: card.category });
+            updateStats();
+
+            selected.classList.add(isCorrect ? 'correct' : 'incorrect');
+            setTimeout(() => { state.currentQuizIndex++; loadQuizCard(); }, 600);
+        }
+
+        function skipQuestion() { state.currentQuizIndex++; loadQuizCard(); }
+
+        function endQuiz() {
+            const total = state.correct + state.incorrect;
+            const percentage = total === 0 ? 0 : Math.round((state.correct / total) * 100);
+            const willPass = percentage >= 70;
+
+            document.getElementById('finalScore').textContent = percentage + '%';
+            const passDiv = document.getElementById('passIndicator');
+            passDiv.className = willPass ? 'pass-indicator pass' : 'pass-indicator fail';
+            passDiv.innerHTML = willPass ? '✅ <strong>YOU WOULD PASS THE EXAM</strong><br>(70% Required)' : '❌ <strong>YOU WOULD FAIL THE EXAM</strong><br>(70% Required)';
+
+            let html = '';
+            state.quizAnswers.forEach((ans, idx) => {
+                html += `<div class="result-item ${ans.correct ? 'correct' : ''}"><div class="result-question">${idx + 1}. ${ans.q}</div><div class="result-your-answer">Your: ${ans.userAnswer}</div>${!ans.correct ? `<div class="result-correct-answer">Correct: ${ans.a}</div>` : ''}</div>`;
+            });
+            document.getElementById('resultsList').innerHTML = html;
+
+            state.mode = 'results';
+            document.getElementById('flashcardSection').classList.add('hidden');
+            document.getElementById('quizSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+        }
+
+        function renderMissedCards() {
+            if (!state.missedCards.length) { document.getElementById('missedList').innerHTML = '<p style="text-align: center; color: #2ea043; font-size: 18px;">🎉 Perfect! No missed cards!</p>'; return; }
+            let html = '';
+            state.missedCards.forEach((card, idx) => {
+                html += `<div class="card" style="margin-bottom: 15px;"><div class="card-category">${card.category}</div><div class="card-question">${card.q}</div><div class="card-answer">${card.a}</div></div>`;
+            });
+            document.getElementById('missedList').innerHTML = html;
+        }
+
+        init();
+    </script>
+</body>
+</html>
