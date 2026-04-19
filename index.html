@@ -192,15 +192,66 @@
 
     <script>
         const flashcards = [
-            {category: "Ohio Law", q: "What is ORC 3743?", a: "Ohio Revised Code Chapter 3743 governs all fireworks licensing and regulations."},
-            {category: "Ohio Law", q: "What are Ohio's three exhibitor license types?", a: "Type I: Display fireworks (1.3G). Type II: Distributor. Type III: Wholesaler."},
-            {category: "NFPA 1123", q: "What is the minimum separation distance for display fireworks?", a: "Minimum 1.5x burst height, typically 50-100+ feet depending on shell size."},
-            {category: "NFPA 1123", q: "What's the difference between electrical and hand-firing?", a: "Electrical firing uses e-match from distance (safer). Hand-firing requires close-range use (less safe)."},
-            {category: "Terminology", q: "What is a cake or battery?", a: "Multi-effect device with tubes firing in sequence. Cake: single rectangular unit. Battery: multiple units together."},
-            {category: "Terminology", q: "What is setback distance?", a: "Minimum horizontal distance between discharge site and structures, property lines, or hazards."},
-            {category: "Acronyms", q: "What does AHJ stand for?", a: "Authority Having Jurisdiction - your local fire marshal or officials."},
-            {category: "Acronyms", q: "What does NFPA stand for?", a: "National Fire Protection Association - sets safety standards."},
-            {category: "Acronyms", q: "What does ATF stand for?", a: "Bureau of Alcohol, Tobacco, Firearms - federal explosives authority."}
+// OHIO LAW (11 cards - PRIORITY: What makes Type I unique)
+{category:"Ohio Law",q:"What is ORC 3743?",a:"Ohio Revised Code Chapter 3743 — the law governing all fireworks licensing, permits, and regulations in Ohio."},
+{category:"Ohio Law",q:"What are Ohio's three exhibitor license types and what do they authorize?",a:"Type I: Display fireworks (1.3G only). Type II: Fireworks distributor. Type III: Fireworks wholesaler."},
+{category:"Ohio Law",q:"What must you do to get a Type I license in Ohio?",a:"Be 18+, pass this exam (70%), provide $1M insurance, apply to SFM 30 days before first event, background check clear."},
+{category:"Ohio Law",q:"Who issues Type I licenses and what's the renewal deadline?",a:"State Fire Marshal (SFM) issues 1-year licenses. Renewal deadline: April 1. License voids if not renewed by April 1."},
+{category:"Ohio Law",q:"What is a pyrotechnic permit and how does it differ from a license?",a:"License: Proves you're qualified (good for 1 year). Permit: AHJ approval for one specific event (date/location). Apply 30 days in advance."},
+{category:"Ohio Law",q:"When can AHJ deny or revoke a permit?",a:"Safety hazards, unqualified operator, insufficient insurance, unsuitable site, violations of ORC 3743, or previous unsafe conduct."},
+{category:"Ohio Law",q:"What is HB 172 and what did it change about fireworks rules?",a:"HB 172 expanded 1.4G consumer fireworks regulations and modified licensing procedures (check SFM for current specifics)."},
+{category:"Ohio Law",q:"Is workers compensation required for fireworks operators?",a:"Yes, if you operate as a business with employees. Check Ohio Bureau of Workers Compensation (BWC) for current coverage requirements."},
+{category:"Ohio Law",q:"What is a registered assistant in Ohio and how is it different from an operator?",a:"Assistant licensed to help under Type I operator's supervision. Requires separate $25 application 14 days before event; cannot independently operate."},
+{category:"Ohio Law",q:"What is the penalty for operating display fireworks without a Type I license in Ohio?",a:"Civil fine up to $500 per violation, plus potential criminal charges."},
+{category:"Ohio Law",q:"What are the insurance requirements for Type I exhibitors in Ohio?",a:"Minimum $1,000,000 general liability insurance. Must provide proof when applying for license and permits."},
+
+// NFPA 1123 (10 cards - Core display knowledge)
+{category:"NFPA 1123",q:"What's the difference between deflagration and detonation?",a:"Deflagration: rapid burning (subsonic, used in lift charges). Detonation: violent explosion with shockwave (supersonic, avoided in pyrotechnics)."},
+{category:"NFPA 1123",q:"What is black powder, flash powder, and lift charge?",a:"Black powder: saltpeter/charcoal/sulfur fuel for lift charges. Flash powder: bright-burning composition for effects. Lift charge: black powder elevating a shell."},
+{category:"NFPA 1123",q:"What are the key device types in display fireworks?",a:"Aerial shell: launched from mortar. Mortar: tube device. Salute: loud report device. Mine: ground-level device. Cake/battery: multi-tube device firing in sequence."},
+{category:"NFPA 1123",q:"What is fallout radius and how is it determined?",a:"Distance where shell debris falls. Calculate as 1.5x burst height minimum. Add buffer for wind. Varies: 3-inch 50ft, 6-inch 100ft+."},
+{category:"NFPA 1123",q:"How do you inspect mortars before a display?",a:"Check for cracks/corrosion/burrs. Verify tube diameter matches shells. Confirm fuse holes clear. Test mounting stability."},
+{category:"NFPA 1123",q:"What's the misfire procedure if a shell fails to fire?",a:"Wait 15+ minutes. Clear non-essential personnel. Approach from safe angle. Inspect without handling. Re-attempt only if safe. Soak in water if stuck."},
+{category:"NFPA 1123",q:"What criteria make a good display site?",a:"Clear of obstacles/buildings/power lines. Minimum fallout radius available. Good drainage. Level ground. Away from combustibles. Owner permission. AHJ approval."},
+{category:"NFPA 1123",q:"What's the difference between electrical and hand-firing?",a:"Electrical: e-match ignited from distance (safest). Hand-firing: match/lighter at close range (requires skill, higher risk)."},
+{category:"NFPA 1123",q:"What temperature and storage conditions are required for black powder magazines?",a:"50-90°F (10-32°C), kept dry. Stored in locked magazine separate from buildings, well-ventilated, clearly labeled."},
+{category:"NFPA 1123",q:"What is the relationship between burst height, fallout distance, and audience separation?",a:"Burst height determines fallout radius (1.5x). Audience must be beyond fallout radius or protected by barriers."},
+
+// NFPA 1126 (4 cards - Proximate audience)
+{category:"NFPA 1126",q:"What is NFPA 1126 and what makes it different from 1123?",a:"1126: Standard for proximate audience fireworks (audience 15-50 ft away). Uses smaller, safer devices than 1123. Requires stricter monitoring and approval."},
+{category:"NFPA 1126",q:"What safety measures are required for proximate audience displays?",a:"Barriers/distance controls. Operator qualifications. Plan submission to AHJ. Walk-through inspection. Fire safety system checks. Audience protection measures."},
+{category:"NFPA 1126",q:"What plan must you submit to AHJ for a proximate audience display?",a:"Device types/quantities, layout diagram, audience distances/barriers, operator qualifications, fire safety procedures, emergency plan, insurance proof."},
+{category:"NFPA 1126",q:"Who is responsible for audience safety in a proximate audience display?",a:"Operator and venue owner jointly share responsibility. Both must ensure audience protection and compliance with 1126 distance/barrier rules."},
+
+// CLASSIFICATIONS (3 cards - Consolidated)
+{category:"Classifications",q:"What's the difference between 1.3G and 1.4G fireworks?",a:"1.3G: Display fireworks (higher hazard, professional only, e.g., aerial shells). 1.4G: Consumer fireworks (lower hazard, e.g., sparklers, fountains)."},
+{category:"Classifications",q:"What UN classifications apply to fireworks?",a:"0333/0334: 1.4G fireworks. 0335: 1.3G fireworks. 0336: 1.4S (consumer). 0337: 1.3G articles. 0431/0432: Explosive articles/devices."},
+{category:"Classifications",q:"What does the UN number tell you about fireworks?",a:"Hazard classification and regulatory requirements for storage, transport, and use. Determines licensing and handling requirements."},
+
+// SAFETY (8 cards)
+{category:"Safety",q:"What are the 5 critical pre-display checks?",a:"1) Inspect devices for damage/labeling. 2) Check weather (no winds >12mph, rain, storms). 3) Verify mortars aligned. 4) Confirm safety perimeter. 5) Verify fire extinguishers ready."},
+{category:"Safety",q:"What are the danger zones and required distances from spectators?",a:"Discharge site: 100+ ft from non-personnel. Audience: minimum 1.5x burst height (varies by AHJ/device). Fallout area: 1.5x burst height plus wind buffer."},
+{category:"Safety",q:"What's the misfire protocol: what's the waiting period and why?",a:"Wait 15+ minutes minimum for fuse to burn out completely. Then approach safely, inspect without touching, re-attempt only if obviously safe. Worst case: soak in water."},
+{category:"Safety",q:"When must you cancel or postpone a display?",a:"High winds >12 mph, low cloud ceiling, rain/precipitation, insufficient visibility, electrical storm approaching. Safety over schedule always."},
+{category:"Safety",q:"What protective gear must operators wear during a display?",a:"Safety glasses, gloves, retardant-treated clothing. Essential for hand-firing and close-range operations."},
+{category:"Safety",q:"What fire extinguishers are needed at a fireworks display and what classes?",a:"Class C (dry powder) for electrical circuits. Water/foam for general fires. Multiple units positioned around discharge site."},
+{category:"Safety",q:"What are the post-display inspection requirements?",a:"Search for unexploded shells/debris. Check for fires/hot spots. Document any misfires. Collect dud shells for safe disposal later."},
+{category:"Safety",q:"What are the roles of operator, assistant, and AHJ in maintaining safety?",a:"Operator: in-charge, responsible for compliance. Assistant: supports under supervision. AHJ: approves permit, inspects site, enforces regulations."},
+
+// TERMINOLOGY (6 cards - Consolidated)
+{category:"Terminology",q:"What's a shell burst, star, and salute in fireworks?",a:"Shell burst: aerial shell explosion at peak altitude. Star: colored pellet burning inside shell. Salute: device producing loud report (noise effect)."},
+{category:"Terminology",q:"What are quick match, fuse, and time fuse?",a:"Quick match: fused cord synchronizing timing. Fuse: cord burning at known rate to ignite device. Time fuse: fuse delaying ignition for effect timing."},
+{category:"Terminology",q:"What is a break charge, cake/battery, and caliber?",a:"Break charge: explosive dispersing shell effects. Cake/battery: multi-tube device firing in sequence. Caliber: mortar tube diameter (3/4/6-inch typical)."},
+{category:"Terminology",q:"What is fallout radius, discharge site, and setback distance?",a:"Fallout radius: where debris falls (1.5x burst height min). Discharge site: firing location. Setback: min distance from structures/property lines."},
+{category:"Terminology",q:"What is a crossette effect?",a:"Shell that breaks mid-air into smaller shells, each creating separate burst effect (cascading appearance)."},
+{category:"Terminology",q:"What color chemicals are used in fireworks and which metal produces each color?",a:"Strontium: red. Copper: blue. Barium: green. Sodium: yellow. Metal compounds burning with color inside shells."},
+
+// ACRONYMS (5 cards - Consolidated by theme)
+{category:"Acronyms",q:"What do AHJ, SFM, and DOC stand for in fireworks regulation?",a:"AHJ: Authority Having Jurisdiction (local fire marshal). SFM: State Fire Marshal (Ohio official). DOC: Department of Commerce (Ohio agency issuing licenses)."},
+{category:"Acronyms",q:"What do NFPA, ATF, and CPSC stand for?",a:"NFPA: National Fire Protection Association (safety standards). ATF: Bureau of Alcohol, Tobacco, Firearms (federal explosives). CPSC: Consumer Product Safety Commission."},
+{category:"Acronyms",q:"What do APA, PGI, and ORC stand for?",a:"APA: American Pyrotechnics Association (professional). PGI: Pyrotechnics Guild International (guild). ORC: Ohio Revised Code (state law)."},
+{category:"Acronyms",q:"What do DOT and OFC stand for?",a:"DOT: Department of Transportation (transporting explosives). OFC: Ohio Fire Code (incorporates NFPA standards)."},
+{category:"Acronyms",q:"What are BCI and USPA in fireworks context?",a:"BCI: Bureau of Criminal Investigation (Ohio fireworks licensing). USPA: United States Parachute Association (also recognized for pyro credentials)."},
         ];
 
         let state = {
